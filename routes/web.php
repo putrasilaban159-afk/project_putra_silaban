@@ -1,11 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PageController;
+use App\Http\Controllers\ProductController;
 
-Route::get('/', [PageController::class, 'home'])->name('home');
-Route::get('/home', [PageController::class, 'home'])->name('home'); // optional
-Route::get('/about', [PageController::class, 'about'])->name('about');
-Route::get('/myshop', [PageController::class, 'myshop'])->name('myshop');
-Route::get('/products', [PageController::class, 'products'])->name('products');
+// Halaman statis pakai Route::view()
+Route::view('/', 'home')->name('home');
+Route::view('/home', 'home')->name('home'); // optional
+Route::view('/about', 'about')->name('about');
 
+// Route CRUD Product
+Route::resource('products', ProductController::class);
+
+// Alihkan /myshop ke /products
+Route::redirect('/myshop', '/products')->name('myshop');
